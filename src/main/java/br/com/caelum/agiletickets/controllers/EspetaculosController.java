@@ -1,7 +1,5 @@
 package br.com.caelum.agiletickets.controllers;
 
-import static br.com.caelum.vraptor.view.Results.status;
-
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
@@ -16,6 +14,7 @@ import br.com.caelum.agiletickets.domain.Agenda;
 import br.com.caelum.agiletickets.domain.DiretorioDeEstabelecimentos;
 import br.com.caelum.agiletickets.domain.precos.CalculadoraDePrecos;
 import br.com.caelum.agiletickets.models.Espetaculo;
+import br.com.caelum.agiletickets.models.Estabelecimento;
 import br.com.caelum.agiletickets.models.Periodicidade;
 import br.com.caelum.agiletickets.models.Sessao;
 import br.com.caelum.vraptor.Controller;
@@ -28,6 +27,8 @@ import br.com.caelum.vraptor.validator.Validator;
 
 import com.google.common.base.Strings;
 
+import static br.com.caelum.vraptor.view.Results.status;
+
 @Controller
 public class EspetaculosController {
 	
@@ -37,6 +38,7 @@ public class EspetaculosController {
 	private Validator validator;
 	private Agenda agenda;
 	private DiretorioDeEstabelecimentos estabelecimentos;
+	private Estabelecimento estabelecimento;
 	
 	/** @deprecated CDI eyes only*/
 	protected EspetaculosController() {
@@ -140,6 +142,11 @@ public class EspetaculosController {
 		}
 		validator.onErrorUse(status()).notFound();
 		return espetaculo;
+	}
+
+	// metodo antigo. aqui soh por backup
+	private Estabelecimento criaEstabelecimento(Long id) {
+		return estabelecimentos.todos().get(0);
 	}
 	
 }
