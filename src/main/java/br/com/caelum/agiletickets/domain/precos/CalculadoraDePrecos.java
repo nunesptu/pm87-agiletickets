@@ -12,16 +12,17 @@ public class CalculadoraDePrecos {
 		Integer totalIngressos = sessao.getTotalIngressos();
 		TipoDeEspetaculo tipo = sessao.getEspetaculo().getTipo();
 		BigDecimal preco = sessao.getPreco();
+		double taxaOcupacao = (totalIngressos - ingressosReservados) / totalIngressos.doubleValue();
 		
 		if(tipo.equals(TipoDeEspetaculo.CINEMA) || tipo.equals(TipoDeEspetaculo.SHOW)) {
 			//quando estiver acabando os ingressos... 
-			if((totalIngressos - ingressosReservados) / totalIngressos.doubleValue() <= 0.05) { 
+			if(taxaOcupacao <= 0.05) { 
 				preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
 			}
 		} else {
 			Integer duracaoEmMinutos = sessao.getDuracaoEmMinutos();
 			if(tipo.equals(TipoDeEspetaculo.BALLET) || tipo.equals(TipoDeEspetaculo.ORQUESTRA)) {
-				if((totalIngressos - ingressosReservados) / totalIngressos.doubleValue() <= 0.50) { 
+				if(taxaOcupacao <= 0.50) { 
 					preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(0.20)));
 				}
 				
