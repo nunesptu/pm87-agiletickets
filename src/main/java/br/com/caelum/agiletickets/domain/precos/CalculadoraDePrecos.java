@@ -20,7 +20,7 @@ public class CalculadoraDePrecos {
 			}
 		} else {
 			Integer duracaoEmMinutos = sessao.getDuracaoEmMinutos();
-			if(tipo.equals(TipoDeEspetaculo.BALLET)) {
+			if(tipo.equals(TipoDeEspetaculo.BALLET) || tipo.equals(TipoDeEspetaculo.ORQUESTRA)) {
 				if((totalIngressos - ingressosReservados) / totalIngressos.doubleValue() <= 0.50) { 
 					preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(0.20)));
 				}
@@ -28,15 +28,7 @@ public class CalculadoraDePrecos {
 				if(duracaoEmMinutos > 60){
 					preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
 				}
-			} else if(tipo.equals(TipoDeEspetaculo.ORQUESTRA)) {
-				if((totalIngressos - ingressosReservados) / totalIngressos.doubleValue() <= 0.50) { 
-					preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(0.20)));
-				}
-
-				if(duracaoEmMinutos > 60){
-					preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
-				}
-			}
+			} 
 		} 
 
 		return preco.multiply(BigDecimal.valueOf(quantidade));
